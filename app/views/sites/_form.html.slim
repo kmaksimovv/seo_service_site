@@ -1,0 +1,5 @@
+.row.justify-content-center
+  .col-4
+    = simple_form_for @site, remote: true do |f|
+      = f.input :domain
+      = f.submit 'add new domain'
