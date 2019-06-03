@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_01_065249) do
+ActiveRecord::Schema.define(version: 2019_06_03_060922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2019_06_01_065249) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "https_status"
+    t.boolean "www_subdomain"
     t.index ["domain"], name: "index_sites_on_domain", unique: true
     t.index ["user_id"], name: "index_sites_on_user_id"
   end

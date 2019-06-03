@@ -1,4 +1,13 @@
 = render 'form'
 .sites
   p: h3 List domains:
-  = render @sites
+  table.table
+    thead
+      tr
+        th #
+        th domain
+        th link
+        th Https status
+        th www-subdomain
+    tbody
+      = render @sites
