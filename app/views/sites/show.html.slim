@@ -1,0 +1,100 @@
+p.text-center
+  | Domain: 
+  b =@site.domain
+table.table
+  thead
+    tr
+      th Request URL
+      th Scheme
+      th port
+      th Host
+      th Status code
+      th Message
+  tbody
+    tr
+      td = @checkdomain.uri_http
+      td = @checkdomain.uri_http.scheme
+      td = @checkdomain.uri_http.port
+      td = @checkdomain.uri_http.host
+      td = @checkdomain.code(@checkdomain.uri_http)
+      td = @checkdomain.message(@checkdomain.uri_http)
+    tr
+      td = @checkdomain.uri_https
+      td = @checkdomain.uri_https.scheme
+      td = @checkdomain.uri_https.port
+      td = @checkdomain.uri_https.host
+      td = @checkdomain.code(@checkdomain.uri_https)
+      td = @checkdomain.message(@checkdomain.uri_https)
+    tr
+      td = @checkdomain.uri_http_www
+      td = @checkdomain.uri_http_www.scheme
+      td = @checkdomain.uri_http_www.port
+      td = @checkdomain.uri_http_www.host
+      td = @checkdomain.code(@checkdomain.uri_http_www)
+      td = @checkdomain.message(@checkdomain.uri_http_www)
+    tr
+      td = @checkdomain.uri_https_www
+      td = @checkdomain.uri_https_www.scheme
+      td = @checkdomain.uri_https_www.port
+      td = @checkdomain.uri_https_www.host
+      td = @checkdomain.code(@checkdomain.uri_https_www)
+      td = @checkdomain.message(@checkdomain.uri_https_www)        
+p
+  .card
+    |  Detail Request for url    
+    = @checkdomain.uri_http
+    |    and code    
+    = @checkdomain.code(@checkdomain.uri_http)
+    .card-body
+      p
+        -@checkdomain.request(@checkdomain.uri_http)&.each_header do |key, value|
+            p 
+              =key 
+              |    =>  
+              =value
+
+p
+  .card
+    |  Detail Request for url    
+    = @checkdomain.uri_https
+    |    and code    
+    = @checkdomain.code(@checkdomain.uri_https)
+    .card-body
+      p
+        -@checkdomain.request(@checkdomain.uri_https)&.each_header do |key, value|
+            p 
+              =key 
+              |    =>  
+              =value  
+
+p
+  .card
+    |  Detail Request for url    
+    = @checkdomain.uri_http_www
+    |    and code    
+    = @checkdomain.code(@checkdomain.uri_http_www)
+    .card-body
+      p
+        -@checkdomain.request(@checkdomain.uri_http_www)&.each_header do |key, value|
+            p 
+              =key 
+              |    =>  
+              =value    
+
+p
+  .card
+    |  Detail Request for url    
+    = @checkdomain.uri_https_www
+    |    and code    
+    = @checkdomain.code(@checkdomain.uri_https_www)
+    .card-body
+      p
+        -@checkdomain.request(@checkdomain.uri_https_www)&.each_header do |key, value|
+            p 
+              =key 
+              |    =>  
+              =value  
+
+
+
+

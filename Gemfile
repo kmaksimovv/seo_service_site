@@ -20,6 +20,7 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'bootstrap', '~> 4.3', '>= 4.3.1'
 gem 'bootstrap_flash_messages', '~> 1.0', '>= 1.0.2'
 gem 'simple_form', '~> 4.1'
+gem 'sitemap-parser', '~> 0.4.0'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

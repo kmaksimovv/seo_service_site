@@ -1,10 +1,7 @@
 class Site < ApplicationRecord
   belongs_to :user
+  has_many :sitemap_pages
 
   validates :domain, presence: true, uniqueness: { case_sensitive: false }
   validates :user, presence: true
-
-  def set_https_status(status)
-    self.https_status = status
-  end
 end

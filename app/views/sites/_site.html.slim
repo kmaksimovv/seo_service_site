@@ -2,5 +2,4 @@ tr
   td = site.id
   td = site.domain
   td = link_to 'move', "http://#{site.domain}", target: :blank
-  td = view_https_status(site.https_status)
-  td = site.www_subdomain
+  td = link_to  "show", site_path(site) 
