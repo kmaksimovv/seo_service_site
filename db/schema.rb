@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_01_065249) do
+ActiveRecord::Schema.define(version: 2019_06_07_123720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "pages", force: :cascade do |t|
+    t.string "url"
+    t.bigint "sitemap_file_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sitemap_file_id"], name: "index_pages_on_sitemap_file_id"
+  end
+
+  create_table "sitemap_files", force: :cascade do |t|
+    t.string "path"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_sitemap_files_on_site_id", unique: true
+  end
 
   create_table "sites", force: :cascade do |t|
     t.string "domain"
@@ -46,5 +62,7 @@ ActiveRecord::Schema.define(version: 2019_06_01_065249) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "pages", "sitemap_files"
+  add_foreign_key "sitemap_files", "sites"
   add_foreign_key "sites", "users"
 end

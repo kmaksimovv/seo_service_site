@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Site, type: :model do
   describe 'Associations' do
     it { should belong_to(:user) }
+    it { should have_one(:sitemap_file).dependent(:destroy) }
   end
 
   describe 'Validations' do

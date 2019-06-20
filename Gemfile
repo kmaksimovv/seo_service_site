@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -20,12 +18,11 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'bootstrap', '~> 4.3', '>= 4.3.1'
 gem 'bootstrap_flash_messages', '~> 1.0', '>= 1.0.2'
 gem 'simple_form', '~> 4.1'
-gem 'sitemap-parser', '~> 0.4.0'
+gem 'typhoeus', '~> 1.3', '>= 1.3.1'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 5.0', '>= 5.0.2'
-  gem 'faker', '~> 1.9', '>= 1.9.3'
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
 end
 
