@@ -6,7 +6,7 @@ require 'uri'
 require 'net/http'
 
 class SitemapParser
-  attr_reader :domain, :url, :url_http_sitemap, :url_https_sitemap, :url_http_www_sitemap, :url_https_www_sitemap, :robots_sitemap_lists
+  attr_reader :domain, :url, :url_http_sitemap, :url_https_sitemap, :url_http_www_sitemap, :url_https_www_sitemap, :robots_sitemap_path_list
 
   def initialize(domain)
     @domain = domain
@@ -26,16 +26,28 @@ class SitemapParser
 
   def robots_sitemap
     @robots_sitemap_path_list ||= open(URI.join(@url, 'robots.txt')).read.scan(/\s*sitemap:\s*([^\r\n]+)\s*$/i).flatten!.uniq
-    handle_nested_sitemaps(@robots_sitemap_path_list)
+
+    handle_nested_sitemaps(@robots_sitemap_path_list).each do |nested_sitemap|
+      Nokogiri::XML(open(load_sitemap(nested_sitemap), &:read)).search('url').map { |url| url.at('loc').content }
+    end
+  rescue StandardError
+    nil
   end
 
-  def handle_nested_sitemaps(robots_sitemap_path_list=[])
-    robots_sitemap_path_list.map do |path|
+  def handle_nested_sitemaps(robots_sitemap_path_list = [])
+    nested_sitemap = robots_sitemap_path_list.map do |path|
       path_io = open(path)
-      sitemap_data = Nokogiri::HTML(path)
-      nested_sitemaps = sitemap_data.xpath("//sitemapindex/sitemap/loc")
-      nested_sitemaps.map(&:text).flatten
+      sitemap_data = Nokogiri::HTML(path_io).xpath('//sitemapindex/sitemap/loc').map(&:text)
     end
+
+    nested_sitemap.flatten!
+  end
+
+  def load_sitemap(url=nil)
+    sitemap_io = open(url)
+    return Zlib::GzipReader.new(sitemap_io)
+  rescue
+    return nil
   end
 
   private
