@@ -1,11 +1,9 @@
 class SitemapFilesController < ApplicationController
   before_action :find_site
 
-  def index
+  def show
+    @sparser = SitemapParser.new(@site.domain)
   end
-
-
-
 
   private
 

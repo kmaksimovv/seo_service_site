@@ -4,7 +4,7 @@ require 'uri'
 require 'net/http'
 
 class SitemapParser
-  attr_reader :domain, :robots_sitemap_path_list, :list_nested_sitemap
+  attr_reader :domain, :robots_sitemap_path, :list_nested_sitemap
 
   def initialize(domain)
     @domain = domain
@@ -14,9 +14,16 @@ class SitemapParser
   def urls
     return parse_sitemap(check_default_sitemap) if check_default_sitemap
 
-    robots_sitemap
+    parse_nested_sitemaps(robots_sitemap)
   end
 
+  def sitemap_path
+    robots_sitemap
+    check_default_sitemap&.to_s || robots_sitemap_path&.join(",")
+  end
+
+  private 
+  
   def check_default_sitemap
     url_http_sitemap = URI.join(@url, 'sitemap.xml')
     url_https_sitemap = URI.join(URI.parse("https://#{@domain}"), 'sitemap.xml')
@@ -28,19 +35,18 @@ class SitemapParser
     return url_http_www_sitemap if Net::HTTP.get_response(url_http_www_sitemap).code == '200'
     return url_https_www_sitemap if Net::HTTP.get_response(url_https_www_sitemap).code == '200'
   rescue StandardError
-    false
+    nil
   end
 
-  private
-
   def robots_sitemap
-    @robots_sitemap_path_list ||= open(URI.join(@url, 'robots.txt')).read.scan(/\s*sitemap:\s*([^\r\n]+)\s*$/i).flatten!.uniq
+    @robots_sitemap_path ||= open(URI.join(@url, 'robots.txt')).read.scan(/\s*sitemap:\s*([^\r\n]+)\s*$/i).flatten!.uniq
 
-    @list_nested_sitemap = nested_sitemaps(@robots_sitemap_path_list)
-    parse_nested_sitemaps(@list_nested_sitemap)
+    @list_nested_sitemap ||= nested_sitemaps(@robots_sitemap_path)
+    @list_nested_sitemap
   rescue StandardError
     nil
   end
+  
 
   def nested_sitemaps(sitemap_list = [])
     sitemap_list.map do |path|

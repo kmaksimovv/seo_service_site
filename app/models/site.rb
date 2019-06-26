@@ -4,4 +4,12 @@ class Site < ApplicationRecord
 
   validates :domain, presence: true, uniqueness: { case_sensitive: false }
   validates :user, presence: true
+
+  after_create :parse_sitemap_job
+
+  private
+
+  def parse_sitemap_job
+    ParseSitemapJob.perform_later(self)
+  end
 end
