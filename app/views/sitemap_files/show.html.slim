@@ -9,7 +9,7 @@ p.text-center
 table.table.table-striped
   caption 
     | Total pages:  
-    = @sitemap_file.pages.count
+    = @sitemap_file.pages&.count
   thead.thead-dark.text-center
     tr
       th #

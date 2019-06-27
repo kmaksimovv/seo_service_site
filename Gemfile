@@ -18,7 +18,6 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'bootstrap', '~> 4.3', '>= 4.3.1'
 gem 'bootstrap_flash_messages', '~> 1.0', '>= 1.0.2'
 gem 'simple_form', '~> 4.1'
-gem 'typhoeus', '~> 1.3', '>= 1.3.1'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'will_paginate', '~> 3.1', '>= 3.1.7'
