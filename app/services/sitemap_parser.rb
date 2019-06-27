@@ -19,11 +19,11 @@ class SitemapParser
 
   def sitemap_path
     robots_sitemap
-    check_default_sitemap&.to_s || robots_sitemap_path&.join(",")
+    check_default_sitemap&.to_s || robots_sitemap_path&.join(',')
   end
 
-  private 
-  
+  private
+
   def check_default_sitemap
     url_http_sitemap = URI.join(@url, 'sitemap.xml')
     url_https_sitemap = URI.join(URI.parse("https://#{@domain}"), 'sitemap.xml')
@@ -46,7 +46,6 @@ class SitemapParser
   rescue StandardError
     nil
   end
-  
 
   def nested_sitemaps(sitemap_list = [])
     sitemap_list.map do |path|

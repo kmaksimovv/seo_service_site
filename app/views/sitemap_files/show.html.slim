@@ -1,5 +1,21 @@
+p
+  | Sitemap found by path
+  |  
+  b = @sitemap_file&.path
 
--if @sparser.check_default_sitemap
-  p Sitemap.xml found by default path
-  = @sparser.check_default_sitemap.to_s
+p.text-center
+  | List pages:
 
+table.table.table-striped
+  caption 
+    | Total pages:  
+    = @sitemap_file.pages.count
+  thead.thead-dark.text-center
+    tr
+      th #
+      th url
+      th link
+  tbody
+    = render partial: 'sitemap_files/page_sitemap_file',  collection: @list_pages = @sitemap_file.pages.reverse.paginate(:page => params[:page], :per_page => 20), as: :page
+
+= will_paginate(@list_pages, renderer: WillPaginate::ActionView::BootstrapLinkRenderer)

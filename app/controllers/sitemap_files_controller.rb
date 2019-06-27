@@ -2,7 +2,7 @@ class SitemapFilesController < ApplicationController
   before_action :find_site
 
   def show
-    @sparser = SitemapParser.new(@site.domain)
+    @sitemap_file = @site.sitemap_file
   end
 
   private

@@ -6,8 +6,6 @@ Rails.application.routes.draw do
   root to: 'sites#index'
 
   resources :sites do
-    resource :sitemap_file, only: :show, shallow: true do
-      resources :pages, only: [:index], shallow: true
-    end
+    resource :sitemap_file, only: :show, shallow: true 
   end
 end
