@@ -4,4 +4,8 @@ class Page < ApplicationRecord
   def to_s
     url
   end
+
+  def parse
+    WebPageParser::PageParser.new(self.url)
+  end
 end

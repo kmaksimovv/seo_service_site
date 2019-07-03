@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   end
 
   get :robot, to: 'robots#robot', as: :robot_txt
+  get :parsing_page, to: 'parsing_pages#parsing_page'
 end

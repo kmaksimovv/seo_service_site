@@ -9,13 +9,16 @@ p.text-center
 table.table.table-striped
   caption 
     | Total pages:  
-    = @sitemap_file.pages&.count
+    = @sitemap_file&.pages&.count
   thead.thead-dark.text-center
     tr
       th #
       th url
       th link
+      th parse pages
   tbody
-    = render partial: 'sitemap_files/page_sitemap_file',  collection: @list_pages = @sitemap_file.pages.reverse.paginate(:page => params[:page], :per_page => 20), as: :page
+    - if @sitemap_file
+        = render partial: 'sitemap_files/page_sitemap_file',  collection: @list_pages = @sitemap_file.pages.reverse.paginate(:page => params[:page], :per_page => 20), as: :page
 
-= will_paginate(@list_pages, renderer: WillPaginate::ActionView::BootstrapLinkRenderer)
+- unless @list_pages.nil?
+  = will_paginate(@list_pages, renderer: WillPaginate::ActionView::BootstrapLinkRenderer)
