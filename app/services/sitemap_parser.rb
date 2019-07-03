@@ -4,6 +4,10 @@ require 'uri'
 require 'net/http'
 
 class SitemapParser
+  SITEMAP_FORMAT = /\s*sitemap:\s*([^\r\n]+)\s*$/i.freeze
+  STATUS_CODE = '200'.freeze
+  SITEMAP_XML = 'sitemap.xml'.freeze
+
   attr_reader :domain, :robots_sitemap_path, :list_nested_sitemap
 
   def initialize(domain)
@@ -25,21 +29,27 @@ class SitemapParser
   private
 
   def check_default_sitemap
-    url_http_sitemap = URI.join(@url, 'sitemap.xml')
-    url_https_sitemap = URI.join(URI.parse("https://#{@domain}"), 'sitemap.xml')
-    url_http_www_sitemap = URI.join(URI.parse("http://www.#{@domain}"), 'sitemap.xml')
-    url_https_www_sitemap = URI.join(URI.parse("https://www.#{@domain}"), 'sitemap.xml')
+    urls = []
+    url_http_sitemap = URI.join(@url, SITEMAP_XML)
+    url_https_sitemap = URI.join(URI.parse("https://#{@domain}"), SITEMAP_XML)
+    url_http_www_sitemap = URI.join(URI.parse("http://www.#{@domain}"), SITEMAP_XML)
+    url_https_www_sitemap = URI.join(URI.parse("https://www.#{@domain}"), SITEMAP_XML)
 
-    return url_http_sitemap if Net::HTTP.get_response(url_http_sitemap).code == '200'
-    return url_https_sitemap if Net::HTTP.get_response(url_https_sitemap).code == '200'
-    return url_http_www_sitemap if Net::HTTP.get_response(url_http_www_sitemap).code == '200'
-    return url_https_www_sitemap if Net::HTTP.get_response(url_https_www_sitemap).code == '200'
-  rescue StandardError
+    urls.push(url_http_sitemap, url_https_sitemap, url_http_www_sitemap, url_https_www_sitemap)
+
+    begin
+      urls.each do |url|
+        return url if Net::HTTP.get_response(url).code == STATUS_CODE
+      end
+    rescue StandardError
+      nil
+    end
+
     nil
   end
 
   def robots_sitemap
-    @robots_sitemap_path ||= open(URI.join(@url, 'robots.txt')).read.scan(/\s*sitemap:\s*([^\r\n]+)\s*$/i).flatten!.uniq
+    @robots_sitemap_path ||= open(URI.join(@url, 'robots.txt')).read.scan(SITEMAP_FORMAT).flatten!.uniq
 
     @list_nested_sitemap ||= nested_sitemaps(@robots_sitemap_path)
     @list_nested_sitemap
@@ -81,10 +91,10 @@ class SitemapParser
   def parse_sitemap(url)
     sitemap_data = Nokogiri::XML(open(url))
 
-    if sitemap_data.at('urlset').present?
+    if !sitemap_data.at('urlset').nil?
       return filter_sitemap_urls(sitemap_data.at('urlset'))
 
-    elsif sitemap_data.at('sitemapindex').present?
+    elsif !sitemap_data.at('sitemapindex').nil?
       found_urls = []
       nested_sitemaps = sitemap_data.at('sitemapindex').search('sitemap')
 
@@ -92,7 +102,7 @@ class SitemapParser
         child_sitemap_location = sitemap.at('loc').content.strip
         found_urls << filter_sitemap_urls(Nokogiri::XML(open(child_sitemap_location)))
       end
-      return found_urls.flatten
+      found_urls.flatten
     end
   end
 end

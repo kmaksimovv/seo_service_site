@@ -11,8 +11,7 @@ class RobotsTxt
   def read
     raw_data = open(@path) { |f| f.read }
   rescue StandardError
-    raw_data = nil
-    return if raw_data.nil?
+    return unless raw_data
     raw_data
   end
 end
