@@ -1,4 +1,34 @@
-p= @page.url
+.text-center
+  | Parsed page 
+  p= @page.url
 
 - unless @parser.nil?
-    p= @parser.title
+.text-center
+  #high-tags 
+    h3
+      | List high tags: 
+p 
+  |  
+  b titel: 
+  = @parser.title
+  br 
+  |  
+  b charset: 
+  = @parser.charset
+  br
+  |  
+  b X-UA-Compatible: 
+  = @parser.compatible
+  br
+  |  
+  b viewport: 
+  = @parser.compatible       
+  br
+  |  
+  b description: 
+  = @parser.description
+  br
+  |  
+  b lang: 
+  = @parser.language_tag
+
