@@ -4,36 +4,58 @@ module WebPageParser
 
   class PageParser
     attr_reader :doc
+    attr_accessor :title,
+                  :charset,
+                  :compatible,
+                  :viewport,
+                  :description,
+                  :language,
+                  :keywords
 
     def initialize(url)
       @doc = Nokogiri::HTML(open(url))
+      page_detail_info
     end
 
-  # high tags
-    def title
+    def page_detail_info
+      self.title = page_title
+      self.charset = page_charset
+      self.compatible = page_compatible
+      self.viewport = page_viewport
+      self.page_description = page_description
+      self.language = page_language
+      self.keywords = page_keywords
+    rescue StandardError
+    end
+
+    private
+
+    def page_title
       @doc.title
     end
 
-    def charset
-      @doc.at('meta[charset]')&.values&.join
+    def page_charset
+      @doc.at('meta[charset]').values.join
     end
 
-    def compatible
+    def page_compatible
       @doc.at('meta[http-equiv]').values.join(',')
     end
 
-    def viewport
+    def page_viewport
       @doc.at('meta[name = "viewport"]').values.join(',')
     end
 
-    def description
+    def page_description
       @doc.at('meta[name = "description"]').values.second
     end
 
-    def language_tag
+    def page_language
       @doc.children[1].attribute('lang').value
     end
 
-    # low tags
+    def page_keywords
+      @doc.at('meta[name = "keywords"]').values.last
+    end
   end
 end

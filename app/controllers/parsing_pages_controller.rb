@@ -3,7 +3,7 @@ class ParsingPagesController < ApplicationController
     @page  = Page.find(params[:id])
 
     begin
-      @parser = @page.parse
+      @parser = @page.parser
     rescue Errno::ENOENT => e
       flash.now[:error] = "No the file of the page there"
     rescue 
