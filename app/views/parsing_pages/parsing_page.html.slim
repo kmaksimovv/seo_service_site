@@ -1,6 +1,53 @@
-p= @page.url
+.text-center
+  | Parsed page 
+  p= @page.url
 
 - unless @parser.nil?
-    p= @parser.title
-    p= @parser.doctype
+.text-center
+  #high-tags 
+    h3
+      | By list tags: 
+p 
+  |  
+  b titel:  
+  = @parser.title
+  br 
+  |  
+  b charset:   
+  = @parser.charset
+  br
+  |  
+  b X-UA-Compatible:   
+  = @parser.compatible
+  br
+  |  
+  b viewport:   
+  = @parser.compatible       
+  br
+  |  
+  b description:   
+  = @parser.description
+  br
+  |  
+  b lang:   
+  = @parser.language
+  br
+  |  
+  b keywords:  
+  = @parser.keywords 
+  br
+  |  
+  b tag h1 headlines:  
+  = @parser.tag_h_one
+
+.text-center
+  | information on the number of tags
+
+- @parser.count_tags.each do |tag, count|
+      = tag
+      |:  
+      b = count
+      br
+
+
 
