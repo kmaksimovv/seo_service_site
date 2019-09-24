@@ -22,6 +22,7 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'will_paginate', '~> 3.1', '>= 3.1.7'
 gem 'will_paginate-bootstrap4'
+gem 'devise-i18n'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
