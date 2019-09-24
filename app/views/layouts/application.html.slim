@@ -10,17 +10,11 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    .navbar.navbar-static-top.navbar-dark.bg-dark
-      .container-fluid
-        = link_to 'SeoServiceSite', root_path, class: 'navbar-brand'
-        - if user_signed_in?
-          = button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-primary"
-        - else
-          = link_to 'Sing Up', new_user_registration_path, class: "btn btn-primary"
-          = link_to 'Sing In', new_user_session_path, class: "btn btn-primary"
+    = render partial: 'shared/navbar'  
     .container
       .row
         .col-md-12
           #flash_messages
+          br  
             = flash_messages(:close)
           = yield
