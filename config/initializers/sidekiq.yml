@@ -1,7 +1,0 @@
-:verbose: false
-:concurrency: 5
-:queues:
-- [main, 5]
-production:
-:queues:
-- [main, 5]
