@@ -1,0 +1,7 @@
+ru:
+  sites:
+    form:
+      create: 'добавить'
+    index:
+      list_domain: 'список доменов'  
+      add: 'добавить домен'

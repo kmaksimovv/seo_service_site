@@ -1,10 +1,14 @@
-= render 'form'
+br
+.text-right
+  = link_to t('.add'), new_site_path
+p 
+  h4.text-center = t('.list_domain')
+
+
 .sites
-  p: h3 List domains:
-  table.table
-    thead
+  table.table.borderless.text-center
+    thead.thead-dark
       tr
-        th #
         th domain
         th link
         th info

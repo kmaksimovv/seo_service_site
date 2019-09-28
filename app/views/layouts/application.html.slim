@@ -3,7 +3,7 @@ html
   head
     meta[charset="utf-8"]
     title
-      | SeoServiceSite
+      | SEO | HOME
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
     = csrf_meta_tags
     = csp_meta_tag
@@ -12,9 +12,6 @@ html
   body
     = render partial: 'shared/navbar'  
     .container
-      .row
-        .col-md-12
-          #flash_messages
-          br  
-            = flash_messages(:close)
-          = yield
+      #flash_messages
+        = flash_messages(:close)
+      = yield

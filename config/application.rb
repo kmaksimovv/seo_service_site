@@ -20,5 +20,6 @@ module SeoServiceSite
     end
 
     config.i18n.default_locale = :ru
+    config.time_zone = 'Moscow'
   end
 end

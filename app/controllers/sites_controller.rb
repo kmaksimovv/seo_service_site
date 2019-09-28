@@ -3,6 +3,11 @@ class SitesController < ApplicationController
     @sites = Site.order(created_at: :desc).limit(10)
   end
 
+  def def new
+    @site = Site.new
+  end
+  
+
   def create
     @site = current_user.sites.new(params.require(:site).permit(:domain))
     if @site.save
