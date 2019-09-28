@@ -3,6 +3,9 @@
       <ul class="navbar-nav ml-auto">
         <% if user_signed_in? %>
           <li class="nav-item">
+            <%= link_to 'sidekiq', sidekiq_web_path, class: 'btn btn-light'%>
+          </li>
+          <li class="nav-item">
             <%= link_to current_user.email, edit_user_registration_path, class: 'btn btn-light'%>
           </li>
           <li class="nav-item">
