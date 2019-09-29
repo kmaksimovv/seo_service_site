@@ -6,13 +6,15 @@ p
 
 
 .sites
-  table.table.borderless.text-center
+  table.table.borderless.text-left
     thead.thead-dark
       tr
-        th domain
-        th link
-        th info
-        th sitemap file
-        th robots.txt file
+        th = t('.domain')
+        th = t('.link')
+        th = t('.test')
+        th = t('.url_links')
+        th = t('.count_pages')
+        th = t('.file_robots')
+        th = t('.date')
     tbody
       = render @sites
