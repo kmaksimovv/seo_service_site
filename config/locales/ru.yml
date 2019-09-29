@@ -5,3 +5,18 @@ ru:
     index:
       list_domain: 'список доменов'  
       add: 'добавить домен'
+      domain: 'домен'
+      link: 'ссылка'
+      test: 'проверить'
+      url_links: 'url адреса'
+      file_robots: 'robots файл'
+      date: 'дата создания'
+      count_pages: 'страниц'
+    site:  
+      open: 'открыть'
+      run_test: 'тест'
+      list_pages: 'список'  
+  sitemap_files:
+    page_sitemap_file:
+      parse: 'парсить'
+

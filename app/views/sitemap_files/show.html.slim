@@ -1,21 +1,11 @@
-p
-  | Sitemap found by path
-  |  
-  b = @sitemap_file&.path
-
-p.text-center
-  | List pages:
+br
+  .text-center
+    - if @sitemap_file
+      | Sitemap файл найден
+      |  
+      b = @sitemap_file&.path
 
 table.table.table-striped
-  caption 
-    | Total pages:  
-    = @sitemap_file&.pages&.count
-  thead.thead-dark.text-center
-    tr
-      th #
-      th url
-      th link
-      th parse pages
   tbody
     - if @sitemap_file
         = render partial: 'sitemap_files/page_sitemap_file',  collection: @list_pages = @sitemap_file.pages.reverse.paginate(:page => params[:page], :per_page => 20), as: :page
