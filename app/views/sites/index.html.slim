@@ -1,9 +1,8 @@
-br
-.text-right
-  = link_to t('.add'), new_site_path
+
 p 
   h4.text-center = t('.list_domain')
-
+  .text-right
+    = link_to t('.add'), new_site_path
 
 .sites
   table.table.borderless.text-left
