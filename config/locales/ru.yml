@@ -12,6 +12,13 @@ ru:
       file_robots: 'robots файл'
       date: 'дата создания'
       count_pages: 'страниц'
+    show:
+      back: 'назад'
+      protocol: 'протокол'
+      port: 'порт'
+      code: 'код ответа'
+      message: 'ответ сервера'
+      detail: 'детали запроса'  
     site:  
       open: 'открыть'
       run_test: 'тест'
