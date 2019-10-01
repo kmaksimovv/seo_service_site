@@ -115,7 +115,7 @@ ru:
     sessions:
       already_signed_out: Выход из системы уже выполнен.
       new:
-        sign_in: Войти
+        sign_in: войти
       signed_in: Вход в систему выполнен.
       signed_out: Выход из системы выполнен.
     shared:

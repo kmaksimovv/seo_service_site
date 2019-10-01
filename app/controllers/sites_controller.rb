@@ -3,15 +3,14 @@ class SitesController < ApplicationController
     @sites = Site.order(created_at: :desc).limit(10)
   end
 
-  def def new
+  def new
     @site = Site.new
   end
-  
 
   def create
     @site = current_user.sites.new(params.require(:site).permit(:domain))
     if @site.save
-      redirect_to sites_path, notice: 'domain added'
+      redirect_to sites_path, notice: t('.domain_added')
     else
       redirect_to sites_path
     end

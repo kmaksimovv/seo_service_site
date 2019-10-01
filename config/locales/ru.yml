@@ -18,7 +18,9 @@ ru:
       port: 'порт'
       code: 'код ответа'
       message: 'ответ сервера'
-      detail: 'детали запроса'  
+      detail: 'детали запроса'
+    create:
+      domain_added: 'домен добавлен'    
     site:  
       open: 'открыть'
       run_test: 'тест'

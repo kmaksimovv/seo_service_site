@@ -8,6 +8,6 @@ class SitemapFilesController < ApplicationController
   private
 
   def find_site
-    @site = Site.find(params[:site_id])  
+    @site = Site.find(params[:site_id])
   end
 end

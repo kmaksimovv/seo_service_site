@@ -6,6 +6,6 @@ class Page < ApplicationRecord
   end
 
   def parser
-    WebPageParser::PageParser.new(self.url)
+    WebPageParser::PageParser.new(url)
   end
 end

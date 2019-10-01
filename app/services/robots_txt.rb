@@ -9,9 +9,10 @@ class RobotsTxt
   end
 
   def read
-    raw_data = open(@path) { |f| f.read }
+    raw_data = open(@path, &:read)
   rescue StandardError
     return unless raw_data
+
     raw_data
   end
 end

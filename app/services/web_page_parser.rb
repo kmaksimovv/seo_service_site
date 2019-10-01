@@ -77,7 +77,7 @@ module WebPageParser
     def page_count_tags
       tags = %w[div h1 h2 h3 h4 h5 h6 p ul a form table br]
       tags.each do |tag|
-        self.count_tags[tag] = @doc.css(tag).size
+        count_tags[tag] = @doc.css(tag).size
       end
     end
   end

@@ -1,9 +1,9 @@
 module FeatureHelpers
   def sign_in(user)
     visit new_user_session_path
-    fill_in 'Email',	with: user.email
-    fill_in 'Password',	with: user.password
-    click_on 'Log in'
+    fill_in 'почта', with: user.email
+    fill_in 'пароль', with: user.password
+    click_on 'войти'
   end
 
   def sign_up_with(email, password, password_confirmation)

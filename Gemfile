@@ -46,6 +46,7 @@ group :test do
   gem 'shoulda-matchers', '~> 4.0', '>= 4.0.1'
   gem 'webdrivers', '~> 4.0'
   gem 'capybara-email'
+  gem 'rails-controller-testing'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
